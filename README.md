@@ -17,6 +17,7 @@ The pins can be wired through SH 1.0mm pitch horizontal connectors.
 
 ![IO_MOSAIC](https://github.com/piecol/Wisblock_IO_extention_10x23/assets/29545872/d94824b2-ea09-4e53-92ed-dce951a62d62)
 
-Main point was to allow analog measuements on RAK19003 mini WisBlock base. Having a dedicated ADC also makes it possible to measure either 2 single-ended channel or one in differential mode. 
+Main point was to allow analog measuements on RAK19003 mini WisBlock base that has no IO slot. 
+Having a dedicated ADC also makes it possible to measure either 2 single-ended channel or one in differential mode. 
 
 ![test_RAK v1](https://github.com/piecol/Wisblock_IO_extention_10x23/assets/29545872/fa6455f0-08eb-4e42-8286-08541ba00e5f)
