@@ -21,3 +21,67 @@ Main point was to allow analog measuements on RAK19003 mini WisBlock base that h
 Having a dedicated ADC also makes it possible to measure either 2 single-ended channel or one in differential mode. 
 
 ![test_RAK v1](https://github.com/piecol/Wisblock_IO_extention_10x23/assets/29545872/fa6455f0-08eb-4e42-8286-08541ba00e5f)
+
+***Read sensor ADS1115***
+##### ADS1115  
+ ```c
+#include <Arduino.h>
+#include <Wire.h>
+#ifdef _VARIANT_RAK4630_
+#include <Adafruit_TinyUSB.h>
+#endif
+#include "ADS1X15.h"
+
+#define VSS_PIN WB_IO2
+#define PWR_ON  HIGH
+
+ADS1115 ADS(0x48);
+
+
+void setup() 
+{ 
+  pinMode(VSS_PIN, OUTPUT);
+  digitalWrite(VSS_PIN, PWR_ON);
+  
+  delay(500);
+  Serial.begin(115200);
+  delay(2000);
+  Serial.println(__FILE__);
+  Serial.print("ADS1X15_LIB_VERSION: ");
+  Serial.println(ADS1X15_LIB_VERSION);
+  ADS.begin();
+}
+
+
+void loop() 
+{
+  ADS.setGain(1);
+
+  int16_t val_0 = ADS.readADC(0);  
+  int16_t val_1 = ADS.readADC(1);  
+ 
+  float f = ADS.toVoltage(1);  // voltage factor
+
+  Serial.print("\tAnalog0: ");   Serial.println(val_0 * f, 6);
+  Serial.print("\tAnalog1: ");   Serial.println(val_1 * f, 6);
+  Serial.println();
+
+  delay(1000);
+}
+```
+
+Arduino serial prints:
+
+```c
+Analog0: 0.220006
+Analog1: 0.392011
+
+Analog0: 0.240007
+Analog1: 0.268008
+
+Analog0: 0.286008
+Analog1: 0.356010
+
+Analog0: 0.306009
+Analog1: 0.372011
+```
